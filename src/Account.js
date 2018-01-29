@@ -11,17 +11,27 @@ export default class Account extends Component {
   handleDeposit (e) {
     let currentValueAsNumber = Number(this.inputBox.value);
     let previousBalanceAsNumber = Number(this.state.balance);
-    this.setState({
-      balance: previousBalanceAsNumber + currentValueAsNumber
-    })
+    if (!(isNaN(currentValueAsNumber))) {
+      this.setState({
+        balance: previousBalanceAsNumber + currentValueAsNumber
+      })
+    }
     this.inputBox.value = "";
   }
   handleWithdraw (e) {
     let currentValueAsNumber = Number(this.inputBox.value);
     let previousBalanceAsNumber = Number(this.state.balance);
-    this.setState({
-      balance: previousBalanceAsNumber - currentValueAsNumber
-    })
+    if (!(isNaN(currentValueAsNumber))) {
+      if (currentValueAsNumber > previousBalanceAsNumber) {
+        this.setState({
+          balance: 0
+        })
+      } else {
+        this.setState({
+          balance: previousBalanceAsNumber - currentValueAsNumber
+        })
+      }
+    }
     this.inputBox.value = "";
   }
   render() {
